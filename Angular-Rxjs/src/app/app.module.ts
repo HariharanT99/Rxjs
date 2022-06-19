@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChipComponent } from './component/chip/chip.component';
+import { ComponentAComponent } from './component/component-a/component-a.component';
+import { ComponentBComponent } from './component/component-b/component-b.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ComponentAComponent,
+    ComponentBComponent,
+    ChipComponent
   ],
   imports: [
     BrowserModule,

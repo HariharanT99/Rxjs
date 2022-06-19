@@ -1,1 +1,86 @@
-<h1>Home</h1>
+<div class="main-wrap d-flex flex-column  justify-content-center">
+    <!-- Partition -->
+    <!-- <div class="text-center mb-5">
+        <h2>Partition (Rxjs)</h2>
+        <div class=" w-50 d-flex m-auto g-5">
+            <input type="number" class="form-control m-auto" #inpt/>
+            <button type="submit" class="btn btn-primary ml-2" (click)="onChange(inpt)">Submit</button>
+        </div>
+    </div> -->
+
+    <!-- CombineLatestWith -->
+    <!-- <div class="text-center mb-5">
+        <h2>Partition (Rxjs)</h2>
+        <div class=" w-50 d-flex m-auto g-5">
+            <label> Observable 1:</label>
+            <input type="text" class="form-control m-auto" #inpt/>
+            <button type="submit" class="btn btn-primary ml-2" (click)="onChange1(inpt)">Submit</button>
+        </div>
+        <div class=" w-50 d-flex m-auto g-5 mt-3">
+            <label> Observable 2:</label>
+            <input type="text" class="form-control m-auto" #inpt2/>
+            <button type="submit" class="btn btn-primary ml-2" (click)="onChange2(inpt2)">Submit</button>
+        </div>
+    </div> -->
+
+    <!-- forkJoin & Concat & Race-->
+    <div class="text-center mb-5">
+        <h2>Partition (Rxjs)</h2>
+        <div class=" w-50 d-flex m-auto g-5">
+            <label> Observable 1:</label>
+            <input type="text" class="form-control m-auto" #inpt/>
+            <button type="submit" class="btn btn-primary ml-2" (click)="onChange1(inpt)">Submit</button>
+            <button type="submit" class="btn btn-danger ml-2" (click)="onComplete1()" *ngIf="showCompletBtn">Complete</button>
+        </div>
+        <div class=" w-50 d-flex m-auto g-5 mt-3">
+            <label> Observable 2:</label>
+            <input type="text" class="form-control m-auto" #inpt2/>
+            <button type="submit" class="btn btn-primary ml-2" (click)="onChange2(inpt2)">Submit</button>
+            <button type="submit" class="btn btn-danger ml-2" (click)="onComplete2()" *ngIf="showCompletBtn">Complete</button>
+        </div>
+    </div>
+    <div class="row mt-5" *ngIf="showChild; else cardTemplate">
+        <div class="col-6 text-center">
+            <app-component-a [displayList]="componentAList" [title]="titleA"></app-component-a>
+        </div>
+        <div class="col-6 text-center">
+            <app-component-b [displayList]="componentBList" [title]="titleB"></app-component-b>
+        </div>
+    </div>
+    <ng-template #cardTemplate>
+        <div class="card w-50 m-auto">
+            <div class="card-body">
+                <div class="card w-75 m-auto">
+                    <div class="card-header">
+                        List A
+                    </div>
+                    <div class="card-body">
+                        <app-chip *ngFor="let item of componentAList">
+                            {{item}}
+                        </app-chip>
+                    </div>
+                </div>
+                <div class="card w-75 m-auto">
+                    <div class="card-header">
+                        List B
+                    </div>
+                    <div class="card-body">
+                        <app-chip *ngFor="let item of componentBList">
+                            {{item}}
+                        </app-chip>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card w-50 m-auto">
+            <div class="card-header">
+              Final Result
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>{{result}}</p>
+              </blockquote>
+            </div>
+        </div>
+    </ng-template>
+</div>
