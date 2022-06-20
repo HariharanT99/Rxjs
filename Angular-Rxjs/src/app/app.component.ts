@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'Angular-rxjs';
   delay = 500;
 
+  obj0 = { id: 3, name: 'name 2' };
    obj1 = { id: 3, name: 'name 1' };
    obj2 = { id: 4, name: 'name 2' };
    obj3 = { id: 3, name: 'name 3' };
@@ -36,14 +37,14 @@ export class AppComponent {
 
     // this.obs=this.mform.valueChanges
     //   .pipe(debounceTime(500))
-    //   .subscribe(data => console.log(data));
+    //   .subscribe(data => console.log("DebounceTime =>", data));
 
 
      ///////////////////Debounce/////////////////////
 
       // this.obs=this.mform.valueChanges
-      // .pipe(debounce(() => interval(1500)))
-      // .subscribe(data => console.log(data));
+      // .pipe(debounce(() => interval(500)))
+      // .subscribe(data => console.log("Debounce =>", data));
 
       
 
@@ -66,12 +67,13 @@ export class AppComponent {
       .pipe(distinctUntilChanged())
       .subscribe(console.log);
       // OUTPUT: 1,2,3,4,5
+      // 1,2,3,2,4,5,1,2,3,4,5
 
       ///////////// Distinct with selector ///////////////
 
-      from(this.vals)
-      .pipe(distinct(e => e.id))
-      .subscribe(console.log);
+      // from(this.vals)
+      // .pipe(distinct(e => e.id))
+      // .subscribe(console.log);
     
     /*
     OUTPUT:
@@ -82,51 +84,54 @@ export class AppComponent {
 
 
     //////////DistinctUntillChanaged
-    of(1,1,1,2,2,3,2,4,5,1,2,3,4,5)
-    .pipe(distinctUntilChanged((prev,curr)=>{
-      return curr === prev+1;
-    }))
-    .subscribe(console.log);
+    // of(1,1,1,2,2,3,2,4,5,1,2,3,4,5)
+    // .pipe(distinctUntilChanged((prev,curr)=>{
+    //   return curr === prev+1;
+    // }))
+    // .subscribe(console.log);
 
 
-    //
-    from(this.vals).pipe(distinctUntilChanged()).subscribe((data)=> console.log(data))
+    //////// distinctUntillchange with obj //////////////
 
-    //
-    from(this.vals).pipe(distinctUntilChanged((prev,curr)=>{
-      return curr.id === prev.id+1
-    })).subscribe((data)=> console.log(data))
+    // from(this.vals).pipe(distinctUntilChanged()).subscribe((data)=> console.log(data))
 
-    //with debounce
-    this.obs=this.mform.valueChanges.pipe(
-      debounceTime(1000),
-      //map((event: any) => event.target.value),
-      distinctUntilChanged()
-   ).subscribe((value) => console.log(value));
+
+
+    ///////////// constamize check with distinct untill change /////////////
+
+    // from(this.vals).pipe(distinctUntilChanged((prev,curr)=>{
+    //   return curr.id === prev.id+1
+    // })).subscribe((data)=> console.log(data))
+
+
+
+
+    ////////////////with debounce
+
+
+  //   this.obs=this.mform.valueChanges.pipe(
+  //     debounceTime(1000),
+  //     //map((event: any) => event.target.value),
+  //     distinctUntilChanged()
+  //  ).subscribe((value) => console.log(value));
 
     /////////////////////  Zip  //////////////
 
 
-zip(this.Sourse1$,this.Source2$).subscribe((data)=>{
-  console.log(data);
-})
-
-
-//doubt/////////////////
-// zip(this.obj1,this.obj2,(id: number, name: string)=> ({ id, name })).subscribe((data)=>{
+// zip(this.Sourse1$,this.Source2$).subscribe((data)=>{
 //   console.log(data);
 // })
 
-// https://stackoverflow.com/questions/42352507/rxjs-angular-how-to-zip-observable-arrays-of-objects
+
 
 
 
 // with optional parameter
-zip([this.Source2$,this.Sourse1$],(a,b)=>{
-  return b+'_'+a;
-}).subscribe((data)=>{
-  console.log(data);
-})
+// zip([this.Source2$,this.Sourse1$],(a,b)=>{
+//   return b+'_'+a;
+// }).subscribe((data)=>{
+//   console.log(data);
+// })
 
 
 
