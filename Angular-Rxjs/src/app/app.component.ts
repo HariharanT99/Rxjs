@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AsyncSubject, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular-Rxjs';
+
+  constructor() {
+    let subject = new Subject<number>();
+
+  }
 }
