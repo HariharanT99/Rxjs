@@ -8,18 +8,20 @@ import { Observable, Subject, partition, combineLatestWith, forkJoin, concat, ra
 })
 export class AppComponent {
   title = 'Angular-Rxjs';
-  result: any = 'NAN';
-  // showChild = true
-  // // Partition
+  result: any = '';
+  // Partition
+  //   showChild = true
+
   // numbersSubject = new Subject<any>();
+
   // evenNumbers$: Observable<number>;
   // oddNumbers$: Observable<number>;
 
   // componentAList: number[] = [];
   // componentBList: number[] = [];
 
-    // titleA = 'Even';
-    // titleB = 'Odd';
+  //   titleA = 'Even';
+  //   titleB = 'Odd';
 
   // constructor(){
   //   [this.evenNumbers$, this.oddNumbers$] = partition(this.numbersSubject, value => value % 2 === 0);
@@ -40,48 +42,52 @@ export class AppComponent {
   //   event.value = '';
   // }
 
-
+// ******************************************************************************************************
 
   // CombineLatestWith
 
-  // titleA = '';
-  // titleB = '';
+  titleA = '';
+  titleB = '';
+  showChild = true
 
-  // // Subject
-  // subject1 = new Subject<any>();
-  // subject2 = new Subject<any>();
-
-
-  // // Input List to the child component
-  // componentAList: number[] = [];
-  // componentBList: number[] = [];
+  // Subject
+  subject1 = new Subject<any>();
+  subject2 = new Subject<any>();
 
 
-  // constructor() {
-  //   // CombineLatestwith operator
-  //   this.subject1.pipe(
-  //     combineLatestWith(this.subject2)
-  //   ).subscribe(
-  //     (res: any) => {
-  //       debugger
-  //       this.componentAList.push(res[0])
-  //       this.componentBList.push(res[1])
-  //     }
-  //   )
-  // }
+  // Input List to the child component
+  componentAList: number[] = [];
+  componentBList: number[] = [];
 
 
-  // onChange1(inpt: HTMLInputElement): void {
-  //   this.subject1.next(inpt.value);
-  // }
+  constructor() {
+    // CombineLatestwith operator
+    this.subject1.pipe(
+      combineLatestWith(this.subject2)
+    ).subscribe(
+      (res: any) => {
+        console.log(res);
+        
+        this.componentAList.push(res[0])
+        this.componentBList.push(res[1])
+      }
+    )
+  }
 
-  // onChange2(inpt2: HTMLInputElement): void {
-  //   this.subject2.next(inpt2.value);
-  // }
+
+  onChange1(inpt: HTMLInputElement): void {
+    this.subject1.next(inpt.value);
+  }
+
+  onChange2(inpt2: HTMLInputElement): void {
+    this.subject2.next(inpt2.value);
+  }
+
+// ****************************************************************************************************
 
   // forkJoin
-    // titleA = '';
-    // titleB = '';
+  //   titleA = '';
+  //   titleB = '';
   // showChild = false;
   // showCompletBtn = true;
 
@@ -89,10 +95,10 @@ export class AppComponent {
   // isCompleted1 = false;
   // isCompleted2 = false;
 
+
   // // Subject
   // subject1 = new Subject<any>();
   // subject2 = new Subject<any>();
-  // // subject3 = new Subject<any>();
 
 
   // // Input List to the child component
@@ -102,8 +108,7 @@ export class AppComponent {
   // constructor() {
   //   forkJoin({
   //     sub1: this.subject1,
-  //     sub2: this.subject2,
-  //     // sub3: this.subject3
+  //     sub2: this.subject2
   //   }).subscribe(
   //     (res) => {
   //       this.result = '';
@@ -140,6 +145,7 @@ export class AppComponent {
   //   this.isCompleted2 = true;
   // }
 
+// **********************************************************************************************
 
   // concat
   // titleA = 'Observer 1';
@@ -196,56 +202,57 @@ export class AppComponent {
   //   this.allCompleted = false;
   // }
 
+// ************************************************************************************************
+
   // race
-  titleA = 'Observer 1';
-  titleB = 'Observer 2';
-  showChild = true;
-  showCompletBtn = false;
+  // titleA = 'Observer 1';
+  // titleB = 'Observer 2';
+  // showChild = true;
+  // showCompletBtn = false;
+
+  // isCompA = false;
+  // isCompB = false;
 
 
-  // Subject
-  subject1 = new Subject<any>();
-  subject2 = new Subject<any>();
-  isCompA = false;
-  isCompB = false;
+  // // Subject
+  // subject1 = new Subject<any>();
+  // subject2 = new Subject<any>();
 
 
-  // Input List to the child component
-  componentAList: any[] = [];
-  componentBList: any[] = [];
+  // // Input List to the child component
+  // componentAList: any[] = [];
+  // componentBList: any[] = [];
 
-  constructor() {
-    race(this.subject1,this.subject2)
-    .subscribe(
-      (res) => {
-        if(this.isCompA){
-          this.componentAList.push(res);
-        }
-        else{
-          this.componentBList.push(res);
-        }
-      }
-    )
-  }
+  // constructor() {
+  //   race(this.subject1,this.subject2)
+  //   .subscribe(
+  //     (res) => {
+  //       if(this.isCompA){
+  //         this.componentAList.push(res);
+  //       }
+  //       else{
+  //         this.componentBList.push(res);
+  //       }
+  //     }
+  //   )
+  // }
  
-  onChange1(inpt: HTMLInputElement): void {
-    this.isCompA = true;
-    this.subject1.next(inpt.value);
-    // this.componentAList.push(inpt.value);
-    inpt.value = '';
-  }
+  // onChange1(inpt: HTMLInputElement): void {
+  //   this.isCompA = true;
+  //   this.subject1.next(inpt.value);
+  //   // this.componentAList.push(inpt.value);
+  //   inpt.value = '';
+  // }
 
-  onChange2(inpt2: HTMLInputElement): void {
-    this.isCompB = true;
-    this.subject2.next(inpt2.value);
-    // this.componentBList.push(inpt2.value);
-    inpt2.value = '';
-  }
+  // onChange2(inpt2: HTMLInputElement): void {
+  //   this.isCompB = true;
+  //   this.subject2.next(inpt2.value);
+  //   // this.componentBList.push(inpt2.value);
+  //   inpt2.value = '';
+  // }
 
-  onComplete1(): void {
-    this.subject1.complete();
-  }
-  onComplete2(): void {
-    this.subject2.complete();
-  }
+  // onComplete1(): void {
+  // }
+  // onComplete2(): void {
+  // }
 }
