@@ -241,8 +241,6 @@ export class AppComponent {
 
   ngOnInit() {}
 
-  operator() {}
-
   concatAll() {
     //#region  concat all
     let concatA$ = this.obs1$.pipe(
@@ -286,7 +284,7 @@ export class AppComponent {
     const clicks = fromEvent(document, 'click').pipe(
       tap(() => console.log('click'))
     );
-    const source = clicks.pipe(map(() => interval(1000).pipe(take(5))));
+    const source = clicks.pipe(map(() => interval(1000).pipe(take(3))));
 
     source.pipe(switchAll()).subscribe((x) => console.log(x));
     //#endregion
