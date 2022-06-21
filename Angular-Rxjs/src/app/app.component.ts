@@ -1,11 +1,32 @@
 import { Component } from '@angular/core';
-import { filter, from, delay, fromEvent, interval, map, mergeMap, Observable, of, pipe, retry, skip, skipLast, skipUntil, skipWhile, throwError, timer, concatMap, Subject } from 'rxjs';
-
+import {
+  filter,
+  from,
+  delay,
+  fromEvent,
+  interval,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  pipe,
+  retry,
+  skip,
+  skipLast,
+  skipUntil,
+  skipWhile,
+  throwError,
+  timer,
+  concatMap,
+  Subject,
+} from 'rxjs';
+import { AppService } from './app.service';
+import { Country } from './country';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Angular-Rxjs';
@@ -16,6 +37,8 @@ export class AppComponent {
     this.GetUserList();
     this.retry();
   }
+
+  constructor(private appService: AppService) {}
 
   productList: any[] = [];
   arr: any[] = [];
@@ -34,54 +57,60 @@ export class AppComponent {
       console.log(this.arr);
 
       this.skipUntilOperation();
-    })
+    });
   }
 
   getCartList() {
-    this.appService.GetCarts().pipe().subscribe((result: any) => {
-      //console.log(result);
-    })
+    this.appService
+      .GetCarts()
+      .pipe()
+      .subscribe((result: any) => {
+        //console.log(result);
+      });
   }
 
   GetUserList() {
-    this.appService.GetUserList().pipe().subscribe((result: any) => {
-      //console.log(result);
-    })
+    this.appService
+      .GetUserList()
+      .pipe()
+      .subscribe((result: any) => {
+        //console.log(result);
+      });
   }
 
   skip() {
     const listOfPrices = from(this.arr);
     listOfPrices.pipe(skip(5)).subscribe((value: any) => {
       console.log(value);
-    })
+    });
   }
 
   skipLast() {
     const listOfPrices = from(this.arr);
     listOfPrices.pipe(skipLast(5)).subscribe((value: any) => {
       console.log(value);
-    })
+    });
   }
 
   skipUntilOperation() {
-    const emitAfterClick = from(this.arr).pipe(concatMap(item => of(item).pipe(delay(1000)))).pipe(skipUntil(this.skipUntilOb$));
+    const emitAfterClick = from(this.arr)
+      .pipe(concatMap((item) => of(item).pipe(delay(1000))))
+      .pipe(skipUntil(this.skipUntilOb$));
 
-    emitAfterClick.subscribe(x => {
-      console.log(x)
+    emitAfterClick.subscribe((x) => {
+      console.log(x);
     });
-
   }
 
   skipUntil() {
     this.skipUntilOb$.next();
   }
 
-
   skipWhile() {
     const listOfPrices = from(this.arr);
-    listOfPrices.pipe(skipWhile(i => i !== 15.99)).subscribe((value: any) => {
+    listOfPrices.pipe(skipWhile((i) => i !== 15.99)).subscribe((value: any) => {
       console.log(value);
-    })
+    });
   }
 
   searchCapital() {
@@ -96,7 +125,7 @@ export class AppComponent {
   retry() {
     const source = interval(1000);
     const example = source.pipe(
-      mergeMap(val => {
+      mergeMap((val) => {
         if (val > 2) {
           return throwError('Error!');
         }
@@ -106,12 +135,12 @@ export class AppComponent {
     );
 
     const subscribe = example.subscribe({
-      next: val => console.log(val),
-      error: val => console.log(`${val}: Retried 2 times then quit!`)
+      next: (val) => console.log(val),
+      error: (val) => console.log(`${val}: Retried 2 times then quit!`),
     });
   }
 
-  stopExecuting(){
+  stopExecuting() {
     this.skipUntilOb$.complete();
     this.skipUntilOb$.unsubscribe();
   }
