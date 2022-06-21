@@ -1,1 +1,20 @@
-<h1>Home</h1>
+<div class="box bg-1">
+    RXJS OPERATORS
+  </div>
+  
+  <div class="box bg-1">
+    <button (click)="skip()" class="button button--winona button--border-thin button--round-s" data-text="Skip"><span> Skip </span></button>
+    <button (click)="skipLast()" class="button button--winona button--border-thin button--round-s" data-text="Skip Last"><span> Skip Last </span></button>
+    <button (click)="skipUntil()" class="button button--winona button--border-thin button--round-s" data-text="Skip Until"><span> Skip Until </span></button>
+    <button (click)="skipWhile()" class="button button--winona button--border-thin button--round-s" data-text="Skip While"><span> Skip While </span></button>
+    
+  </div>
+  
+  <form>
+    <label>Capital Name*</label>
+    <input type="text" name="name" placeholder="Enter Capital" [(ngModel)]="name" />
+    <button type="submit" (click)="searchCapital()">Search</button>
+  </form>
+  
+  
+  <router-outlet></router-outlet>
